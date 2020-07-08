@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <!-- Font Aewsome -->
+        <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <!-- Compiled and minified Materialize CSS -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      />
+      <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+      />
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.15.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.15.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.15.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.15.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.15.1/firebase-storage.js"></script>
+    <script defer src="/__/firebase/7.15.1/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+  </head>
+  <body>
+    <!-- <label for="username">username</label>
+    <input type="text" id="user_name" /><br /><br />
+
+    <label for="username">user email</label>
+    <input type="email" id="user_email" /><br /><br />
+
+    <label for="username">password</label>
+    <input type="password" id="password-1" /><br /><br />
+
+    <label for="username">Repeat password</label>
+    <input type="password" id="password-2" /><br /><br />
+
+    <button onclick="signup()">Copy Text</button>
+
+    <h1 id="status">status</h1>
+
+     <h1 id="number">00</h1>
+    <br />
+    <input id="votebtn" onclick="vote()" type="submit" />-->
+    
+    <!-- Wrapper -->
+    <div class="wrapper">
+      <!-- Navbar -->
+      <nav class="amber darken-4">
+        <div class="nav-wrapper">
+          <div class="container">
+            <a href="#" class="brand-logo">Firebase Auth</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+              ><i class="material-icons">menu</i></a
+            >
+            <ul class="right hide-on-med-and-down">
+              <li class="logged-in">
+                <a class="modal-trigger" data-target="modal-account" href="#"
+                  ><span class="material-icons"> account_circle </span>My
+                  Account</a
+                >
+              </li>
+              <li class="admin">
+                <a class="modal-trigger" data-target="modal-create" href="#"
+                  ><span class="material-icons"> create </span>Create Prompt</a
+                >
+              </li>
+              <li class="logged-in">
+                <a class="modal-trigger" id="logout" data-target="logout" href="#"
+                  ><span class="material-icons"> exit_to_app </span>Logout</a
+                >
+              </li>
+              <li class="logged-out">
+                <a class="modal-trigger" data-target="modal-login" href="#"
+                  ><span class="material-icons"> login </span>Login</a
+                >
+              </li>
+              <li class="logged-out">
+                <a class="modal-trigger" data-target="modal-signup" href="#"
+                  ><span class="material-icons"> create </span>Sign Up</a
+                >
+              </li>
+             
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Admin control -->
+      <form class="container center-align admin-actions admin">
+        <input type="email" placeholder="user email" id="admin-email" required />
+        <button class="btn-small yellow darken-2">Make Admin</button>
+      </form>
+
+      <ul class="sidenav" id="mobile-demo">
+        <li class="logged-in">
+          <a class="modal-trigger" data-target="modal-account" href="#"
+            >My
+            Account</a
+          >
+        </li>
+        <li class="logged-in">
+          <a class="modal-trigger" data-target="modal-create" href="#"
+            >Create Prompt</a
+          >
+        </li>
+        <li class="logged-in">
+          <a class="modal-trigger" id="logout" data-target="logout" href="#"
+            >Logout</a
+          >
+        </li>
+        <li class="logged-out">
+          <a class="modal-trigger" data-target="modal-login" href="#"
+            >Login</a
+          >
+        </li>
+        <li class="logged-out">
+          <a class="modal-trigger" data-target="modal-signup" href="#"
+            >Sign Up</a
+          >
+        </li>
+      </ul>
+
+      <!-- Sign up modal -->
+      <div id="modal-signup" class="modal">
+        <div class="modal-content">
+          <h4>Sign Up</h4>
+        </div>
+        <form id="signup-form">
+          <div class="input-field">
+            <input type="email" id="signup-email" required></input>
+            <label for="signup-email">Email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="signup-password" required></input>
+            <label for="signup-password">Password</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="signup-bio" required></input>
+            <label for="signup-bio">Bio</label>
+          </div>
+          <button class="btn amber amber lighten-1">Sign Up</button>
+          <p class="error center-align orange-text"></p>
+        </form>
+      </div>
+
+      <!-- Login modal -->
+      <div id="modal-login" class="modal">
+        <div class="modal-content">
+          <h4>Login</h4>
+        </div>
+        <form id="login-form">
+          <div class="input-field">
+            <input type="email" id="login-email" required />
+            <label for="login-email">Email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="login-password" required />
+            <label for="login-password">Password</label>
+          </div>
+          <button class="btn amber amber lighten-1">Login</button>
+          <p class="error center-align orange-text"></p>
+        </form>
+      </div>
+
+      <!-- Account modal -->
+      <div id="modal-account" class="modal">
+        <div class="modal-content">
+          <h4>Account Details</h4>
+        </div>
+        <div class="account-details"></div>
+      </div>
+
+      <!-- Create writing prompt modal -->
+      <div id="modal-create" class="modal">
+        <div class="modal-content">
+          <h4>Create Writing Prompt</h4>
+        </div>
+        <form id="create-form">
+          <div class="input-field">
+            <input type="text" id="title" required />
+            <label for="title">Prompt Title</label>
+          </div>
+          <div class="input-field">
+            <textarea id="content" class="materialize-textarea"></textarea>
+            <label for="content">Create Prompt</label>
+          </div>
+          <button class="btn amber amber lighten-1">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Prompt List -->
+      <div class="container prompt-container">
+        <ul class="collapsible prompts">
+          
+        </ul>
+      </div>
+    </div>
+
+    <!-- Jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script defer src="asset/js/firebase.js"></script>
+  </body>
+</html>
